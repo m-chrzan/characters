@@ -18,6 +18,13 @@ sub delete_character() {
     $sth->execute($id);
 }
 
+sub delete_item() {
+    my ($self, $dbh, $id) = @_;
+
+    my $sth = $dbh->prepare("DELETE FROM Item WHERE id = ?");
+    $sth->execute($id);
+}
+
 sub delete_character_detail() {
     my ($self, $dbh, $detail) = @_;
 

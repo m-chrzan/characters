@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 use Menu::AddItemMenu;
+use Menu::DeleteItemMenu;
 use Menu::ItemDetailListMenu;
 use Object::Character;
 use Object::Item;
@@ -29,6 +30,12 @@ sub BUILD {
         return_to => $self
     );
     $self->{link_names}{a} = 'add item';
+
+    $self->{connections}{d} = Menu::DeleteItemMenu->new(
+        db_handle => $self->db_handle,
+        return_to => $self
+    );
+    $self->{link_names}{d} = 'delete item';
 }
 
 sub show() {
