@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 
+use Menu::ItemListMenu;
 use Menu::CharacterDetailListMenu;
 use Object::Character;
 use PGInterface::Get;
@@ -24,6 +25,13 @@ sub BUILD {
     my $character = PGInterface::Get->get_character($self->db_handle, $id);
 
     $self->{character} = $character;
+
+    $self->{connections}{i} = Menu::ItemListMenu->new(
+        db_handle => $self->db_handle,
+        character => $self->character,
+        return_to => $self
+    );
+    $self->{link_names}{i} = 'inventory';
 
     $self->{connections}{d} = Menu::CharacterDetailListMenu->new(
         db_handle => $self->db_handle,

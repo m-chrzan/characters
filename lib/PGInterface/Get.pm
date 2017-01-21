@@ -4,8 +4,10 @@ use warnings;
 use DBI;
 
 use Object::Character;
+use Object::Item;
 
 package PGInterface::Get;
+
 use Moose;
 use namespace::autoclean;
 
@@ -39,6 +41,22 @@ sub get_character() {
     $sth->execute($id);
 
     return Object::Character->new($sth->fetchrow_hashref);
+}
+
+sub get_items() {
+    my ($self, $dbh, $character_id) = @_;
+
+    my $sth = $dbh->prepare('SELECT id, name FROM Item WHERE character_id = ?');
+    my $rows_read = $sth->execute($character_id);
+
+    my @items;
+    my $row;
+
+    while ($row = $sth->fetchrow_hashref) {
+        push @items, Object::Item->new($row);
+    }
+
+    return \@items;
 }
 
 sub get_character_details() {

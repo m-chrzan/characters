@@ -1,0 +1,7 @@
+[% menu.character.name %]'s items:
+| id | name |
+[%- FOREACH item IN menu.items %]
+| [% item.id %] | [% item.name %] |
+[%- END %]
+Select item id or menu option:
+[% INCLUDE views/base.tt -%]
