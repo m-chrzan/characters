@@ -16,5 +16,3 @@ has owner_id => (isa => 'Int', is => 'ro');
 __PACKAGE__->meta->make_immutable;
 
 1;
-
-

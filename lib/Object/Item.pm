@@ -11,7 +11,6 @@ has id => (isa => 'Int', is => 'rw');
 has name => (isa => 'Str', is => 'rw');
 has owner_name => (isa => 'Str', is => 'rw');
 
-
 __PACKAGE__->meta->make_immutable;
 
 1;

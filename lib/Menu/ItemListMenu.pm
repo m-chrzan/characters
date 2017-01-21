@@ -59,7 +59,6 @@ sub next_state() {
     }
 }
 
-
 __PACKAGE__->meta->make_immutable;
 
 1;
