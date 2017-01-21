@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 use Menu::CharacterMenu;
+use Menu::AddCharacterMenu;
 use Object::Character;
 use PGInterface::Get;
 
@@ -15,6 +16,16 @@ has characters => (isa => 'ArrayRef[Object::Character]', is => 'ro');
 
 sub _view_builder() {
     return 'views/characters.tt'
+}
+
+sub BUILD {
+    my $self = shift;
+
+    $self->{connections}{a} = Menu::AddCharacterMenu->new(
+        db_handle => $self->db_handle,
+        return_to => $self
+    );
+    $self->{link_names}{a} = 'add character';
 }
 
 sub show() {
