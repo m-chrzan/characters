@@ -1,0 +1,3 @@
+[% FOREACH key IN menu.connections.keys -%]
+  [% menu.formatted_link(key) %]
+[% END -%]
