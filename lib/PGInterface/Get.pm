@@ -41,6 +41,34 @@ sub get_character() {
     return Object::Character->new($sth->fetchrow_hashref);
 }
 
+sub get_character_details() {
+    my ($self, $dbh, $id) = @_;
+
+    my $sth = $dbh->prepare(
+        'SELECT name, value, description FROM character_info(?)'
+    );
+
+    $sth->execute($id);
+
+    my @details;
+    my $row;
+
+    while ($row = $sth->fetchrow_hashref) {
+        if (!$row->{value}) {
+            $row->{value} = $row->{description};
+            $row->{type} = 'ability';
+        } else {
+            $row->{type} = 'attribute';
+        }
+
+        $row->{owner_id} = $id;
+
+        push @details, Object::Detail->new($row);
+    }
+
+    return \@details;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;
