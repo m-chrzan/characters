@@ -3,6 +3,7 @@ use warnings;
 
 use Menu::CharacterMenu;
 use Menu::AddCharacterMenu;
+use Menu::DeleteCharacterMenu;
 use Object::Character;
 use PGInterface::Get;
 
@@ -26,6 +27,12 @@ sub BUILD {
         return_to => $self
     );
     $self->{link_names}{a} = 'add character';
+
+    $self->{connections}{d} = Menu::DeleteCharacterMenu->new(
+        db_handle => $self->db_handle,
+        return_to => $self
+    );
+    $self->{link_names}{d} = 'delete character';
 }
 
 sub show() {
