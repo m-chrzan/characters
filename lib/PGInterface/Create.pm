@@ -36,6 +36,26 @@ sub create_character() {
     return $max_id;
 }
 
+sub create_character_detail() {
+    my ($self, $dbh, $detail) = @_;
+
+    my ($table, $column);
+
+    if ($detail->type eq 'attribute') {
+        $table = 'ChAttribute';
+        $column = 'value';
+    } else {
+        $table = 'ChAbility';
+        $column = 'description';
+    }
+
+    my $sth = $dbh->prepare(
+        "INSERT INTO $table (name, $column, character_id) VALUES (?, ?, ?)"
+    );
+
+    $sth->execute($detail->name, $detail->value, $detail->owner_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

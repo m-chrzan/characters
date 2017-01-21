@@ -4,6 +4,7 @@ use warnings;
 use Object::Character;
 use Object::Detail;
 use PGInterface::Get;
+use Menu::AddCharacterDetailMenu;
 
 package Menu::CharacterDetailListMenu;
 use Moose;
@@ -25,6 +26,13 @@ sub BUILD {
         $self->db_handle,
         $self->character->id
     );
+
+    $self->{connections}{a} = Menu::AddCharacterDetailMenu->new(
+        db_handle => $self->db_handle,
+        character => $self->character,
+        return_to => $self
+    );
+    $self->{link_names}{a} = 'add detail';
 }
 
 sub show() {
