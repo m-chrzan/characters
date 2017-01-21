@@ -43,6 +43,24 @@ sub delete_character_detail() {
     $sth->execute($detail->name, $detail->owner_id);
 }
 
+sub delete_item_detail() {
+    my ($self, $dbh, $detail) = @_;
+
+    my $table;
+
+    if ($detail->type eq 'attribute') {
+        $table = 'ItAttribute';
+    } else {
+        $table = 'ItAbility';
+    }
+
+    my $sth = $dbh->prepare(
+        "DELETE FROM $table WHERE name = ? AND item_id = ?"
+    );
+
+    $sth->execute($detail->name, $detail->owner_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;

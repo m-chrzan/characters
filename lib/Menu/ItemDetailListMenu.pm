@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 use Menu::AddItemDetailMenu;
+use Menu::DeleteItemDetailMenu;
 use Object::Item;
 use Object::Detail;
 use PGInterface::Get;
@@ -29,6 +30,13 @@ sub BUILD {
         $self->db_handle,
         $self->item->id
     );
+
+    $self->{connections}{d} = Menu::DeleteItemDetailMenu->new(
+        db_handle => $self->db_handle,
+        details => $self->details,
+        return_to => $self
+    );
+    $self->{link_names}{d} = 'delete detail';
 
     $self->{connections}{a} = Menu::AddItemDetailMenu->new(
         db_handle => $self->db_handle,
