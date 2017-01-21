@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 
+use Menu::AddItemMenu;
 use Menu::ItemDetailListMenu;
 use Object::Character;
 use Object::Item;
@@ -17,6 +18,17 @@ has items => (isa => 'ArrayRef[Object::Item]', is => 'ro');
 
 sub _view_builder() {
     return 'views/items.tt'
+}
+
+sub BUILD {
+    my $self = shift;
+
+    $self->{connections}{a} = Menu::AddItemMenu->new(
+        db_handle => $self->db_handle,
+        character => $self->character,
+        return_to => $self
+    );
+    $self->{link_names}{a} = 'add item';
 }
 
 sub show() {

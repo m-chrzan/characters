@@ -36,6 +36,31 @@ sub create_character() {
     return $max_id;
 }
 
+sub create_item() {
+    my ($self, $dbh, $name, $character_id) = @_;
+
+    $dbh->{AutoCommit} = 0;
+
+    my $sth = $dbh->prepare("SELECT MAX(id) FROM Item");
+    $sth->execute;
+
+    my $result = $sth->fetchrow_arrayref;
+    my $max_id = $result->[0];
+    $max_id++;
+
+    $sth = $dbh->prepare(
+        'INSERT INTO Item (id, name, character_id) VALUES (?, ?, ?)'
+    );
+
+    $sth->execute($max_id, $name, $character_id);
+
+    $dbh->commit;
+
+    $dbh->{AutoCommit} = 1;
+
+    return $max_id;
+}
+
 sub create_character_detail() {
     my ($self, $dbh, $detail) = @_;
 
