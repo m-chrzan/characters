@@ -1,0 +1,2 @@
+[% menu.character.name %] the [% menu.character.race %]
+[% INCLUDE views/base.tt -%]

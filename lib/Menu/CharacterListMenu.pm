@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 
+use Menu::CharacterMenu;
 use Object::Character;
 use PGInterface::Get;
 
@@ -20,6 +21,20 @@ sub show() {
     my $self = shift;
     $self->{characters} = PGInterface::Get->get_characters($self->db_handle);
     $self->_show_tt;
+}
+
+sub next_state() {
+    my ($self, $command) = @_;
+
+    if ($command =~ /^\d+$/) {
+        return Menu::CharacterMenu->new(
+            db_handle => $self->db_handle,
+            return_to => $self,
+            character_id => $command
+        );
+    } else {
+        return $self->_standard_next_state($command);
+    }
 }
 
 __PACKAGE__->meta->make_immutable;
