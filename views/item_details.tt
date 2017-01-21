@@ -1,0 +1,8 @@
+[% menu.item.name %] details:
+| id | name | value |
+[% FOR i = [1 .. menu.details.size] %]
+[%- i = i - 1 -%]
+| [% i %] | [% menu.details.$i.name %] | [% menu.details.$i.value %] |
+[% END %]
+Select menu option:
+[% INCLUDE views/base.tt -%]

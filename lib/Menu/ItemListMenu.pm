@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 
+use Menu::ItemDetailListMenu;
 use Object::Character;
 use Object::Item;
 use PGInterface::Get;
@@ -24,6 +25,21 @@ sub show() {
                                                  $self->character->id);
     $self->_show_tt;
 }
+
+sub next_state() {
+    my ($self, $command) = @_;
+
+    if ($command =~ /^\d+$/) {
+        return Menu::ItemDetailListMenu->new(
+            db_handle => $self->db_handle,
+            return_to => $self,
+            item_id => $command
+        );
+    } else {
+        return $self->_standard_next_state($command);
+    }
+}
+
 
 __PACKAGE__->meta->make_immutable;
 
