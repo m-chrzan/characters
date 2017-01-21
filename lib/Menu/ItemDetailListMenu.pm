@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 
+use Menu::AddItemDetailMenu;
 use Object::Item;
 use Object::Detail;
 use PGInterface::Get;
@@ -28,6 +29,13 @@ sub BUILD {
         $self->db_handle,
         $self->item->id
     );
+
+    $self->{connections}{a} = Menu::AddItemDetailMenu->new(
+        db_handle => $self->db_handle,
+        item => $self->item,
+        return_to => $self
+    );
+    $self->{link_names}{a} = 'add detail';
 }
 
 sub show() {

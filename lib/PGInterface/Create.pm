@@ -81,6 +81,26 @@ sub create_character_detail() {
     $sth->execute($detail->name, $detail->value, $detail->owner_id);
 }
 
+sub create_item_detail() {
+    my ($self, $dbh, $detail) = @_;
+
+    my ($table, $column);
+
+    if ($detail->type eq 'attribute') {
+        $table = 'ItAttribute';
+        $column = 'value';
+    } else {
+        $table = 'ItAbility';
+        $column = 'description';
+    }
+
+    my $sth = $dbh->prepare(
+        "INSERT INTO $table (name, $column, item_id) VALUES (?, ?, ?)"
+    );
+
+    $sth->execute($detail->name, $detail->value, $detail->owner_id);
+}
+
 __PACKAGE__->meta->make_immutable;
 
 1;
