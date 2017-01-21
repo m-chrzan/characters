@@ -1,0 +1,6 @@
+| id | name | race |
+[%- FOREACH character IN menu.characters %]
+| [% character.id %] | [% character.name %] | [% character.race -%] |
+[%- END %]
+Select character id or menu option:
+[% INCLUDE views/base.tt -%]
