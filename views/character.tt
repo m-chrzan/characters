@@ -2,4 +2,5 @@
 [% IF menu.character.is_dnd -%]
 [%- INCLUDE views/dnd_sheet.tt -%]
 [% END -%]
+Select menu option:
 [% INCLUDE views/base.tt -%]
