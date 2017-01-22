@@ -6,7 +6,7 @@ CREATE TABLE Character (
 
 CREATE TABLE ChAbility (
     name TEXT NOT NULL,
-    character_id INTEGER REFERENCES Character(id),
+    character_id INTEGER REFERENCES Character(id) ON DELETE CASCADE,
     description TEXT,
     PRIMARY KEY (name, character_id)
 );
