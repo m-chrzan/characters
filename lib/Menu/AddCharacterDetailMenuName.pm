@@ -20,13 +20,13 @@ sub show() {
 sub next_state() {
     my ($self, $value) = @_;
 
-    if (not $value) {
+    if ($value eq '') {
         return $self->error_state;
     }
 
     my $type;
 
-    if ($value =~ /^\d+/) {
+    if ($value =~ /^-?\d+/) {
         $type = 'attribute';
     } else {
         $type = 'ability';

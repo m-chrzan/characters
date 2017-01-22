@@ -19,7 +19,7 @@ sub show() {
 sub next_state() {
     my ($self, $name) = @_;
 
-    if (not $name) {
+    if ($name eq '') {
         return $self->error_state;
     }
 

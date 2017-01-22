@@ -19,7 +19,7 @@ sub show() {
 sub next_state() {
     my ($self, $race) = @_;
 
-    if (not $race) {
+    if ($race eq '') {
         return $self->error_state;
     }
 

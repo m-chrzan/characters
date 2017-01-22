@@ -86,7 +86,7 @@ sub get_character_details() {
     my $row;
 
     while ($row = $sth->fetchrow_hashref) {
-        if (!$row->{value}) {
+        if (not defined $row->{value}) {
             $row->{value} = $row->{description};
             $row->{type} = 'ability';
         } else {
@@ -114,7 +114,7 @@ sub get_item_details() {
     my $row;
 
     while ($row = $sth->fetchrow_hashref) {
-        if (!$row->{value}) {
+        if (not defined $row->{value}) {
             $row->{value} = $row->{description};
             $row->{type} = 'ability';
         } else {
