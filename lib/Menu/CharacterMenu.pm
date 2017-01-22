@@ -19,7 +19,7 @@ sub _view_builder() {
     return 'views/character.tt';
 }
 
-sub BUILD {
+sub _pre_show() {
     my $self = shift;
     my $id = $self->character_id;
     my $character = PGInterface::Get->get_character($self->db_handle, $id);

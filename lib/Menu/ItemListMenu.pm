@@ -38,11 +38,10 @@ sub BUILD {
     $self->{link_names}{d} = 'delete item';
 }
 
-sub show() {
+sub _pre_show() {
     my $self = shift;
     $self->{items} = PGInterface::Get->get_items($self->db_handle,
                                                  $self->character->id);
-    $self->_show_tt;
 }
 
 sub next_state() {

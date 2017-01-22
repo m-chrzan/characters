@@ -20,7 +20,7 @@ sub _view_builder() {
     return 'views/character_details.tt'
 }
 
-sub BUILD {
+sub _pre_show {
     my $self = shift;
 
     $self->{details} = PGInterface::Get->get_character_details(
@@ -41,15 +41,6 @@ sub BUILD {
         return_to => $self
     );
     $self->{link_names}{a} = 'add detail';
-}
-
-sub show() {
-    my $self = shift;
-    $self->{details} = PGInterface::Get->get_character_details(
-        $self->db_handle,
-        $self->character->id
-    );
-    $self->_show_tt;
 }
 
 __PACKAGE__->meta->make_immutable;

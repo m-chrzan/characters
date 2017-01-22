@@ -21,8 +21,12 @@ sub _show_tt() {
     $tt->process($self->view, {menu => $self});
 }
 
+sub _pre_show() {
+}
+
 sub show() {
     my $self = shift;
+    $self->_pre_show();
     $self->_show_tt;
 }
 

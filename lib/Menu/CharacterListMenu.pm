@@ -35,10 +35,9 @@ sub BUILD {
     $self->{link_names}{d} = 'delete character';
 }
 
-sub show() {
+sub _pre_show() {
     my $self = shift;
     $self->{characters} = PGInterface::Get->get_characters($self->db_handle);
-    $self->_show_tt;
 }
 
 sub next_state() {
