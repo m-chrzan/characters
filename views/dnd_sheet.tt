@@ -1,0 +1,6 @@
+Level: [% menu.character.level %] (proficiency bonus: +[% menu.character.prof_bonus %])
+| stat | value | modifier |
+[% FOR stat IN ['strength', 'dexterity', 'constitution',
+                'intelligence', 'wisdom', 'charisma'] -%]
+| [%- stat %] | [% menu.character.statistics.$stat %] | [% menu.character.modifiers.$stat %] |
+[% END -%]

@@ -35,12 +35,47 @@ sub get_character() {
     my ($self, $dbh, $id) = @_;
 
     my $sth = $dbh->prepare(
-        'SELECT id, name, race FROM Character WHERE id = ?'
+        'SELECT id, name, race, is_dnd_character(id) as is_dnd FROM Character WHERE id = ?'
     );
 
     $sth->execute($id);
 
-    return Object::Character->new($sth->fetchrow_hashref);
+    my $character = Object::Character->new($sth->fetchrow_hashref);
+
+    if ($character->is_dnd) {
+        my $sth = $dbh->prepare(q/
+            SELECT name, value, modifier(character_id, name) as modifier
+            FROM ChAttribute
+            WHERE character_id = ? AND name SIMILAR TO
+            'strength|dexterity|constitution|intelligence|wisdom|charisma|level'
+        /);
+        $sth->execute($id);
+
+        my $row;
+        my %statistics;
+        my %modifiers;
+        while ($row = $sth->fetchrow_hashref) {
+            $statistics{$row->{name}} = $row->{value};
+            $modifiers{$row->{name}} = $row->{modifier};
+        }
+
+        $character->statistics(\%statistics);
+        $character->modifiers(\%modifiers);
+
+        $sth = $dbh->prepare(q/
+            SELECT value as level, proficiency_bonus(character_id) as prof_bonus
+            FROM ChAttribute
+            WHERE character_id = ? AND name = 'level'
+        /);
+        $sth->execute($id);
+
+        $row = $sth->fetchrow_hashref;
+
+        $character->level($row->{level});
+        $character->prof_bonus($row->{prof_bonus});
+    }
+
+    return $character;
 }
 
 sub get_items() {

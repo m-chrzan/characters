@@ -1,2 +1,5 @@
 [% menu.character.name %] the [% menu.character.race %]
+[% IF menu.character.is_dnd -%]
+[%- INCLUDE views/dnd_sheet.tt -%]
+[% END -%]
 [% INCLUDE views/base.tt -%]
