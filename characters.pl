@@ -8,12 +8,10 @@ use DBI;
 use lib 'lib';
 use Menu::CharacterListMenu;
 
-my ($dbname, $host, $port, $username, $password);
-our $opt_d = 'bd';
-our $opt_h = 'labdb';
-our $opt_r = 5432;
-our $opt_u;
-our $opt_p;
+our ($opt_d, $opt_h, $opt_r, $opt_u, $opt_p);
+$opt_d = 'bd';
+$opt_h = 'labdb';
+$opt_r = 5432;
 
 getopts('d:h:r:u:p:');
 # d => dbname
