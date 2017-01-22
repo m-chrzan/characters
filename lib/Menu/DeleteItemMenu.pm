@@ -14,6 +14,15 @@ sub show() {
     print "Enter item id: ";
 }
 
+sub _error_builder() {
+    my $self = shift;
+
+    return Menu::ErrorMenu->new(
+        return_to => $self,
+        message => "Id has to be a number!"
+    );
+}
+
 sub next_state() {
     my ($self, $id) = @_;
 

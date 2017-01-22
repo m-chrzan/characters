@@ -12,6 +12,15 @@ extends 'Menu::MenuWithReturn';
 
 has details => (isa => 'ArrayRef[Object::Detail]', is => 'ro');
 
+sub _error_builder() {
+    my $self = shift;
+
+    return Menu::ErrorMenu->new(
+        return_to => $self,
+        message => "Id has to be a number!"
+    );
+}
+
 sub show() {
     print "Enter detail id: ";
 }

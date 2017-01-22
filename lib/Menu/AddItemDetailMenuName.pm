@@ -12,6 +12,15 @@ extends 'Menu::MenuWithReturn';
 has name => (isa => 'Str', is => 'ro', required => 1);
 has item => (isa => 'Object::Item', is => 'ro');
 
+sub _error_builder() {
+    my $self = shift;
+
+    return Menu::ErrorMenu->new(
+        return_to => $self,
+        message => "Value can't be NULL!"
+    );
+}
+
 sub show() {
     my $self = shift;
     print "Enter value: ";

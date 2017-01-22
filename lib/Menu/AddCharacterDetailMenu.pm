@@ -12,6 +12,15 @@ extends 'Menu::MenuWithReturn';
 
 has character => (isa => 'Object::Character', is => 'ro');
 
+sub _error_builder() {
+    my $self = shift;
+
+    return Menu::ErrorMenu->new(
+        return_to => $self,
+        message => "Detail name can't be NULL!"
+    );
+}
+
 sub show() {
     print "Enter detail name: ";
 }

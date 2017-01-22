@@ -9,6 +9,15 @@ use Menu::AddCharacterMenuName;
 
 extends 'Menu::MenuWithReturn';
 
+sub _error_builder() {
+    my $self = shift;
+
+    return Menu::ErrorMenu->new(
+        return_to => $self,
+        message => "Name can't be NULL!"
+    );
+}
+
 sub show() {
     print "Enter character's name: ";
 }
