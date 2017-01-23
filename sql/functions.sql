@@ -76,7 +76,7 @@ $it_info$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION is_dnd_character(char_id INTEGER)
 RETURNS BOOLEAN AS $is_dnd$
 DECLARE
-    is_dnd BOOLEAN;    
+    is_dnd BOOLEAN;
 BEGIN
     SELECT 7 = COUNT(*) INTO is_dnd
          FROM ChAttribute

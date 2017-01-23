@@ -34,9 +34,11 @@ sub get_characters() {
 sub get_character() {
     my ($self, $dbh, $id) = @_;
 
-    my $sth = $dbh->prepare(
-        'SELECT id, name, race, is_dnd_character(id) as is_dnd FROM Character WHERE id = ?'
-    );
+    my $sth = $dbh->prepare(q/
+        SELECT id, name, race, is_dnd_character(id) as is_dnd
+        FROM Character
+        WHERE id = ?
+    /);
 
     $sth->execute($id);
 
