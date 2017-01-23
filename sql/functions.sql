@@ -9,7 +9,7 @@ BEGIN
     FROM ChAttribute A
     WHERE A.character_id = char_id AND A.name = attribute_name;
 
-    mod_value = (attribute_value - 10) / 2; 
+    mod_value = floor((attribute_value - 10.0) / 2);
 
     RETURN mod_value;
 END;
